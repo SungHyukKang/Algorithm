@@ -17,7 +17,7 @@ public class No3 {
         for(String Z : gems){
         	hsset.add(Z);
         }
-    return answer;
+    return new int[]{};
     }
 	public static void main(String[] args) {		
 		No3 no = new No3();
