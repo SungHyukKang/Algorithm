@@ -1,11 +1,9 @@
-package jvvv;
-
 import java.util.*;
 
-class Pair4{
+class Pair{
     int x,y;
 
-    Pair4(int x, int y){
+    Pair(int x, int y){
         this.x=x;
         this.y=y;
     }
@@ -13,7 +11,7 @@ class Pair4{
 
 public class Baek7576 {
     public static int[][] arr;
-    public static Queue<Pair4> queue;
+    public static Queue<Pair> queue;
     public static int N;
     public static int M;
     public static int count=0;
@@ -27,7 +25,7 @@ public class Baek7576 {
             for (int j = 0; j < N; j++) {
                 arr[i][j] = sc.nextInt();
                 if(arr[i][j]==1){
-                    queue.offer(new Pair4(i,j));
+                    queue.offer(new Pair(i,j));
                 }
             }
         }
@@ -49,22 +47,22 @@ public class Baek7576 {
     }
     public static void bfs(){
         while(!queue.isEmpty()){
-            Pair4 pair = queue.poll();
+            Pair pair = queue.poll();
             if(isPossible(pair.x+1,pair.y)){
                 arr[pair.x+1][pair.y]=arr[pair.x][pair.y]+1;
-                queue.offer(new Pair4(pair.x+1,pair.y));
+                queue.offer(new Pair(pair.x+1,pair.y));
             }
             if(isPossible(pair.x-1,pair.y)){
                 arr[pair.x-1][pair.y]=arr[pair.x][pair.y]+1;
-                queue.offer(new Pair4(pair.x-1,pair.y));
+                queue.offer(new Pair(pair.x-1,pair.y));
             }
             if(isPossible(pair.x,pair.y+1)){
                 arr[pair.x][pair.y+1]=arr[pair.x][pair.y]+1;
-                queue.offer(new Pair4(pair.x,pair.y+1));
+                queue.offer(new Pair(pair.x,pair.y+1));
             }
             if(isPossible(pair.x,pair.y-1)){
                 arr[pair.x][pair.y-1]=arr[pair.x][pair.y]+1;
-                queue.offer(new Pair4(pair.x,pair.y-1));
+                queue.offer(new Pair(pair.x,pair.y-1));
             }
             count=arr[pair.x][pair.y]-1;
         }
