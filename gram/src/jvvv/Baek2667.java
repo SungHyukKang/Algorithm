@@ -22,48 +22,49 @@ public class Baek2667 {
     		j++;
     	}
     }
-    for(int i = 1;i<=N;i++){
-    	for(int j=1;j<=N;j++){
-    		if(locationPossible(i,j)){
-    			int val = dfs(i,j);
+    
+    for(int i=1;i<=N;i++){
+    	for(int j =1;j<=N;j++){
+    		if(isPossible(i,j)){
+    			int val =dfs(i,j);
     			ll.add(val);
     		}
     	}
     }
-    
+    ll.add(ll.size());
     Collections.sort(ll);
-    System.out.println(ll.size());
     for(int i : ll){
     	System.out.println(i);
     }
+   
 }
     
-    public static int dfs(int x,int y){
-    	int val=1;
+    public static int dfs(int x, int y){
+    	int val =1;
     	visited[x][y]=true;
-    	if(locationPossible(x-1, y)){
+    	if(isPossible(x+1,y)){
+    		val+=dfs(x+1,y);
+    	}
+    	if(isPossible(x-1,y)){
     		val+=dfs(x-1,y);
     	}
-		if(locationPossible(x, y-1)){
-			val+=dfs(x,y-1);
-		}
-		if(locationPossible(x+1, y)){
-			val+=dfs(x+1,y);
-		}
-		if(locationPossible(x, y+1)){
-			val+=dfs(x,y+1);
-		}
-    		return val;
+    	if(isPossible(x,y+1)){
+    		val+=dfs(x,y+1);
+    	}
+    	if(isPossible(x,y-1)){
+    		val+=dfs(x,y-1);
+    	}
+    	return val;
     }
     
-    public static boolean locationPossible(int x, int y){
-    	if((x<1||x>N)||(y<1||x>N)){
+    public static boolean isPossible(int x ,int y){
+    	if(x<1||x>N||y<1||y>N)
+    		return false;
+    	if(visited[x][y]||arr[x][y]==0){
     		return false;
     	}
-    	if(visited[x][y]==true||arr[x][y]==0){
-    		return false;
-    	}else
-    		return true;
+    	return true;
     }
+    
     
 }
