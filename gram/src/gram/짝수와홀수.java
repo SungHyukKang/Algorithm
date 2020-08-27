@@ -1,6 +1,6 @@
 package gram;
 
-public class Â¦¼ö¿ÍÈ¦¼ö {
+public class ì§ìˆ˜ì™€í™€ìˆ˜ {
 
 	public static String solution(int n){
 		if(n%2==0)
@@ -11,7 +11,7 @@ public class Â¦¼ö¿ÍÈ¦¼ö {
 	}
 	
 	public static void main(String[] args) {
-		Â¦¼ö¿ÍÈ¦¼ö.solution(5);
+		ì§ìˆ˜ì™€í™€ìˆ˜.solution(5);
 
 	}
 

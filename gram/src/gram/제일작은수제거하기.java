@@ -1,6 +1,6 @@
 package gram;
 
-public class Á¦ÀÏÀÛÀº¼öÁ¦°ÅÇÏ±â {
+public class ì œì¼ì‘ì€ìˆ˜ì œê±°í•˜ê¸° {
 
 	public int[] solution(int[] arr){
 		int min = arr[0];
@@ -23,7 +23,7 @@ public class Á¦ÀÏÀÛÀº¼öÁ¦°ÅÇÏ±â {
 	}
 	
 	public static void main(String[] args) {
-		Á¦ÀÏÀÛÀº¼öÁ¦°ÅÇÏ±â sc = new Á¦ÀÏÀÛÀº¼öÁ¦°ÅÇÏ±â();
+		ì œì¼ì‘ì€ìˆ˜ì œê±°í•˜ê¸° sc = new ì œì¼ì‘ì€ìˆ˜ì œê±°í•˜ê¸°();
 				
 		sc.solution(new int[]{6,7,2,3,5,1,9});
 

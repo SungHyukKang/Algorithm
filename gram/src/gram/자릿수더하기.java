@@ -1,6 +1,6 @@
 package gram;
 
-public class ÀÚ¸´¼ö´õÇÏ±â {
+public class ìë¦¿ìˆ˜ë”í•˜ê¸° {
 
 		public int solution(int n){
 			int answer =0;
@@ -12,7 +12,7 @@ public class ÀÚ¸´¼ö´õÇÏ±â {
 		}
 	
 	public static void main(String[] args) {
-		ÀÚ¸´¼ö´õÇÏ±â jm = new ÀÚ¸´¼ö´õÇÏ±â();
+		ìë¦¿ìˆ˜ë”í•˜ê¸° jm = new ìë¦¿ìˆ˜ë”í•˜ê¸°();
 		jm.solution(987);
 		
 	}

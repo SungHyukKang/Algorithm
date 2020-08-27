@@ -35,7 +35,8 @@ public class Cache {
 	
 	public static void main(String[] args) {
 		Cache cc = new Cache();
-		cc.solution(3, new String[]{"A","B","C","D","D","A","C"});
+		System.out.println(cc.solution(5, new String[]{"A","B","C","D","D","A","C"}));
+		
 
 	}
 

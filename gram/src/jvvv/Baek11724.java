@@ -1,3 +1,4 @@
+package jvvv;
 import java.util.Scanner;
 
 public class Baek11724 {

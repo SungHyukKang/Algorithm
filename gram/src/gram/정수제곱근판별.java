@@ -1,6 +1,6 @@
 package gram;
 
-public class Á¤¼öÁ¦°ö±ÙÆÇº° {
+public class ì •ìˆ˜ì œê³±ê·¼íŒë³„ {
 
 	public long solution(long n){
 		int count =1;
@@ -16,7 +16,7 @@ public class Á¤¼öÁ¦°ö±ÙÆÇº° {
 	
 	public static void main(String[] args) {
 
-		Á¤¼öÁ¦°ö±ÙÆÇº° xx = new Á¤¼öÁ¦°ö±ÙÆÇº°();
+		ì •ìˆ˜ì œê³±ê·¼íŒë³„ xx = new ì •ìˆ˜ì œê³±ê·¼íŒë³„();
 		System.out.println(xx.solution(3));
 
 	}
@@ -24,8 +24,8 @@ public class Á¤¼öÁ¦°ö±ÙÆÇº° {
 }
 
 /*
-´Ù¸¥ »ç¶÷ÀÇ Ç®ÀÌ
-sqrt°¡ »ı°¢ ¾È³ª¼­ ´ëÃæ Ç®¾ú´Âµ¥ , ¿ª½Ã ¿ä·¸°Ô Çª´Â°Ô ÈÎ¾À ºü¸§ . 
+ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½
+sqrtï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½ï¿½Âµï¿½ , ï¿½ï¿½ï¿½ï¿½ ï¿½ä·¸ï¿½ï¿½ Çªï¿½Â°ï¿½ ï¿½Î¾ï¿½ ï¿½ï¿½ï¿½ï¿½ . 
 if(Math.pow((int)Math.sqrt(n),2)==n){
 			return (long) Math.pow(Math.sqrt(n)+1, 2);
 		}else
