@@ -17,10 +17,10 @@ public class Baek15652 {
 			return;
 		}
 		for(int i =1;i<=N;i++) {
-			if(!visited[i]&&arr.lastElement()<i) {
-				visited[i]=true;
+			if(!visited[i]&&arr.lastElement()<=i) {
 				arr.push(i);
 				dfs(i);
+				visited[i]=true;
 				arr.pop();
 				visited[i]=false;
 			}
@@ -42,7 +42,6 @@ public class Baek15652 {
 			arr = new Stack<>();
 			visited=new boolean[N+1];
 			arr.push(i);
-			visited[i]=true;
 			dfs(i);
 		}
 	}
