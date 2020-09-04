@@ -21,7 +21,7 @@ public class Baek7576 {
         N = sc.nextInt();
         M = sc.nextInt();
         arr = new int[M][N];
-         queue = new LinkedList<>();
+        queue = new LinkedList<>();
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
                 arr[i][j] = sc.nextInt();

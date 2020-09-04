@@ -1,9 +1,12 @@
 package Search;
-
 public class WordConvert {
+	
+	
+	
 	public int solution(String begin, String target, String[] words) {
-        int answer = 0;
-        return answer;
+		int answer = 0;
+        
+		return answer;
     }
 	
 	public static void main(String[] args) {

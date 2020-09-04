@@ -24,10 +24,7 @@ public class Baek11047 {
 				cnt++;
 			}
 		}
-		
 		System.out.println(cnt);
-		
-		
 	}
 
 }

@@ -1,13 +1,16 @@
+package jvvv;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
-class Pair{
-	int x ,y;
-	Pair(int x ,int y){
-		this.x=x;
-		this.y=y;
-	}
-}
+
+//class Pair{
+//	int x ,y;
+//	Pair(int x ,int y){
+//		this.x=x;
+//		this.y=y;
+//	}
+//}
+
 public class Baek2638 {
 	public static BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
 	public static int[][] arr;
@@ -51,7 +54,6 @@ public class Baek2638 {
 				arr[pair.x][pair.y]=-1;
 			}
 			cnt++;
-			System.out.println("-----------------------------------------");
 		}
 		if(cnt==0) {
 			cnt=1;
@@ -63,7 +65,6 @@ public class Baek2638 {
 		while(!queue2.isEmpty()) {
 			int cnt =0;
 			Pair pair = queue2.poll();
-			System.out.println(pair.x+" "+pair.y);
 			if(isPossible(pair.x+1,pair.y)&&arr[pair.x+1][pair.y]==-1) {
 				cnt++;
 			}if(isPossible(pair.x-1,pair.y)&&arr[pair.x-1][pair.y]==-1) {

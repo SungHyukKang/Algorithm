@@ -6,45 +6,29 @@ import java.util.*;
 public class Rectangle {
 
 	public int[] solution(int[][] v){
-			ArrayList<Integer> all = new ArrayList<>();
-			ArrayList<Integer> all2 = new ArrayList<>();
-				int[] answer = new int[2];
-				int cnt = 0;
-				for(int i =0;i<v.length;i++){
-					for(int x : v[i]){
-						if(cnt%2==0)
-							all.add(x);
-						else
-							all2.add(x);
-						cnt++;
-					}
-				}
-				for(int i = 0 ; i <3;i++){
-					for(int j = 0 ; j<3;j++){
-						if(j==i)
-							continue;
-						if(all.get(i)==all.get(j)){
-							all.set(i,-1);
-							all.set(j,-1);
-						}
-						if(all2.get(i)==all2.get(j)){
-							all2.set(i,-1);
-							all2.set(j,-1);
-						}
-					}
-				}
-				for(int zxc : all){
-					if(zxc!=-1){
-						answer[0]=zxc;
-						break;
-					}
-				}for(int zxc : all2){
-					if(zxc!=-1){
-						answer[1]=zxc;
-						break;
-					}
-				}
-				return answer;
+		
+		HashMap<Integer,Integer> hsmapX = new HashMap<>();
+		HashMap<Integer,Integer> hsmapY = new HashMap<>();
+		for(int i =0;i<v.length;i++) {
+			hsmapX.put(v[i][0],hsmapX.getOrDefault(v[i][0], 0)+1);
+			hsmapY.put(v[i][1],hsmapY.getOrDefault(v[i][1], 0)+1);
+		}
+		int[] answer = new int[2];
+		for(int X : hsmapX.keySet()) {
+			if(hsmapX.get(X)==1) {
+				answer[0]=X;
+				break;
+			}
+		}
+		for(int Y : hsmapY.keySet()) {
+			if(hsmapY.get(Y)==1) {
+				answer[1]=Y;
+				break;
+			}
+		}
+		
+		
+		return answer;
 	}
 	
 	public static void main(String[] args) {

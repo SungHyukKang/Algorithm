@@ -23,7 +23,6 @@ public class Baek5014 {
 		visited = new boolean[F+1];
 		queue.offer(S);
 		visited[S]=true;
-		int[] arr = new int[F+1];
 		int answer=-1;
 		while(!queue.isEmpty()) {
 			int pre = queue.poll();
@@ -49,10 +48,6 @@ public class Baek5014 {
 		if(x>F||x<1)
 			return false;
 		return true;
-	}
-
-	public static void bfs(int pre) {
-		
 	}
 	
 }

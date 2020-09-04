@@ -8,7 +8,7 @@ public class Baek15652 {
 	public static int M;
 	public static Stack<Integer> arr;
 	public static boolean[] visited;
-	public static void dfs(int start) {
+	public static void dfs() {
 		if(arr.size()==M) {
 			for(int i =0;i<arr.size();i++) {
 				System.out.print(arr.get(i)+" ");
@@ -19,7 +19,7 @@ public class Baek15652 {
 		for(int i =1;i<=N;i++) {
 			if(!visited[i]&&arr.lastElement()<=i) {
 				arr.push(i);
-				dfs(i);
+				dfs();
 				visited[i]=true;
 				arr.pop();
 				visited[i]=false;
@@ -42,7 +42,7 @@ public class Baek15652 {
 			arr = new Stack<>();
 			visited=new boolean[N+1];
 			arr.push(i);
-			dfs(i);
+			dfs();
 		}
 	}
 }

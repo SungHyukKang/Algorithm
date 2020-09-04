@@ -51,7 +51,6 @@ public class Baek7569 {
 				}
 			}
 		}
-		
 		for(int h=0;h<H;h++) {
 			for(int i=0;i<N;i++) {
 				for(int j =0;j<M;j++) {
@@ -62,22 +61,8 @@ public class Baek7569 {
 		}
 		System.out.println(max);
 	}
-		
-	
-	public static void print() {
-		for(int h=0;h<H;h++) {
-			for(int i=0;i<N;i++) {
-				for(int j =0;j<M;j++) {
-					System.out.print(dist[h][i][j]);
-				}
-				System.out.println();
-			}
-		}
-		System.out.println("-------------------------------------------");
-	}
 	public static void bfs() {
 		while(!queue.isEmpty()) {
-			print();
 		Pairr pair =queue.poll();
 		int h=pair.h;
 		int x=pair.x;
