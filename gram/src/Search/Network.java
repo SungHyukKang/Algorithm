@@ -11,7 +11,7 @@ public class Network {
 			}
 		}
 	}
-	
+	 
 	public int solution(int n , int[][] computers){
 		size = n;
 		visited=new boolean[n];
