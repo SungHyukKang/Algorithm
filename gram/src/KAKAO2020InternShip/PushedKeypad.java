@@ -7,7 +7,7 @@ class Pair{
 		this.y=y;
 	}
 }
-
+ 
 public class PushedKeypad {
 	public String solution(int[] numbers, String hand) {
         StringBuilder sb = new StringBuilder();
