@@ -182,7 +182,7 @@ public class Baek5427 {
 				if(fireMap[x-1][y]==0) {
 					humanQueue.offer(new PPair(x-1,y));
 				}
-				else if(humanMap[x-1][y]<fireMap[x-1][y])
+				else if(humanMap[x-1][y]<fireMap[x-1][y]) 
 					humanQueue.offer(new PPair(x-1,y));
 				else
 					humanMap[x-1][y]=-1;
