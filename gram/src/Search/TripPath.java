@@ -13,7 +13,7 @@ public class TripPath {
 		}
 		if(stack.size()==size+1) {
 			answer= new String[size+1];
-			tf=true;
+			tf=true; 
 			for(int i=0;i<stack.size();i++) {
 				answer[i]=stack.get(i);
 			}
