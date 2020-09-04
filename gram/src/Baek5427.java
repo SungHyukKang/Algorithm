@@ -19,7 +19,6 @@ public class Baek5427 {
 	public static int h;
 	public static Queue<PPair> fireQueue = new LinkedList<>();
 	public static Queue<PPair> humanQueue = new LinkedList<>();
-	public static Queue<PPair> queue = new LinkedList<PPair>();
 	public static void main(String[] args)throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
