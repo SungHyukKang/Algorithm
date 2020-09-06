@@ -15,7 +15,7 @@ class Node implements Comparable<Node>{
 		return this.dist<=arg0.dist ? -1 : 1;
 	}
 	
-	
+	 
 }
 
 public class Baek1753 {
