@@ -25,7 +25,7 @@ public class WordConvert {
 //        	System.out.println(0);
         	return 0;
         }
-        System.out.println(min-1);
+//        System.out.println(min-1);
 		return min;
     }
 
