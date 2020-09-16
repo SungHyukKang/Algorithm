@@ -1,159 +1,95 @@
 import java.util.*;
 import java.io.*;
-
+class Pair0{
+	int x;
+	int y;
+	int cnt;
+	int dist;
+	
+	Pair0(int x, int y,int cnt,int dist){
+		this.x=x;
+		this.y=y;
+		this.cnt=cnt;
+		this.dist=dist;
+	}
+}
 public class Baek2206 {
 	public static int[][] arr;
 	public static int N;
 	public static int M;
-	public static boolean[][] visited;
-	public static boolean[][] visited2;
-	public static Queue<Pair> queue = new LinkedList<>();
-	public static Queue<Pair> queue2 = new LinkedList<>();
-	public static int cnt=1;
+	public static Queue<Pair0> queue = new LinkedList<>();
+	public static int[][] D;
+	static boolean[][] visited;
+	public static final int INF=2100000000;
 	public static void main(String[] args)throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		arr =new int[N+1][M+1];
-		visited = new boolean[N+1][M+1];
-		visited2	 = new boolean[N+1][M+1];
-		
-		for(int i =1;i<=N;i++) {
+		arr =new int[N][M];
+		visited = new boolean[N][M];
+		D = new int[N][M];
+		int ans=-1;
+		for(int i =0;i<N;i++) {
 			String Z = br.readLine();
-			int j =1;
+			int j =0;
 			for(String X : Z.split("")) {
-				arr[i][j++]=Integer.parseInt(X);
+				arr[i][j]=Integer.parseInt(X);
+				D[i][j]=INF;
+				j++;
 			}
 		}
-		queue.offer(new Pair(1,1));
-		visited[1][1]=true;
+		queue.offer(new Pair0(0,0,0,1));
+		D[0][0]=0;
+		int[] nx = {0,0,1,-1};
+		int[] ny = {1,-1,0,0};
 		while(!queue.isEmpty()) {
-			Pair pair = queue.poll();
-			int x = pair.x;
-			int y = pair.y;
-			if(x==N&&y==M) {
+			Pair0 pair = queue.poll();
+			int x= pair.x;
+			int y= pair.y;
+			int cnt =pair.cnt;
+			int dist = pair.dist;
+			if(x==N-1&&y==M-1){
+				ans=dist;
 				break;
 			}
-			if(isPossible(x+1,y)) {
-				if(arr[x+1][y]!=1) {
-					queue.offer(new Pair(x+1,y));
-					visited[x+1][y]=true;
-					arr[x+1][y]=arr[x][y]+1;
-				}else {
-					queue2.offer(new Pair(x+1,y));
-					arr[x+1][y]=arr[x][y]+1;
-					visited2[x+1][y]=true;
+			for(int i =0;i<nx.length;i++) {
+				if(isPossible(x+nx[i],y+ny[i])) {
+					if(D[x+nx[i]][y+ny[i]]<=cnt) {
+						continue;
+					}
+					if(arr[x+nx[i]][y+ny[i]]==1) {
+							if(cnt==0) {
+								queue.offer(new Pair0(x+nx[i],y+ny[i],cnt+1,dist+1));
+								D[x+nx[i]][y+ny[i]]=cnt+1;
+						}
+					}else if(arr[x+nx[i]][y+ny[i]]==0) {
+							queue.offer(new Pair0(x+nx[i],y+ny[i],cnt,dist+1));
+							D[x+nx[i]][y+ny[i]]=cnt;
+					}
 				}
-			}if(isPossible(x-1,y)) {
-				if(arr[x-1][y]!=1) {
-					queue.offer(new Pair(x-1,y));
-					visited[x-1][y]=true;
-					arr[x-1][y]=arr[x][y]+1;
-				}else {
-					queue2.offer(new Pair(x-1,y));
-					arr[x-1][y]=arr[x][y]+1;
-					visited2[x-1][y]=true;
-				}
-			}if(isPossible(x,y+1)) {
-				if(arr[x][y+1]!=1) {
-					queue.offer(new Pair(x,y+1));
-					visited[x][y+1]=true;
-					arr[x][y+1]=arr[x][y]+1;
-				}else {
-					queue2.offer(new Pair(x,y+1));
-					visited2[x][y+1]=true;
-					arr[x][y+1]=arr[x][y]+1;
-				}
-			}if(isPossible(x,y-1)) {
-				if(arr[x][y-1]!=1) {
-					queue.offer(new Pair(x,y-1));
-					visited[x][y-1]=true;
-					arr[x][y-1]=arr[x][y]+1;
-				}else {
-					queue2.offer(new Pair(x,y-1));
-					visited2[x][y-1]=true;
-					arr[x][y-1]=arr[x][y]+1;
-				}
-			}
-			
-			if(queue.isEmpty()&&cnt==1) {
-				cnt--;
-				if(isPossible(x+1,y)) {
-					visited[x+1][y]=true;
-					arr[x+1][y]=arr[x][y]+1;
-					queue.offer(new Pair(x+1,y));
-				}if(isPossible(x-1,y)) {
-					visited[x+1][y]=true;
-					arr[x-1][y]=arr[x][y]+1;
-					queue.offer(new Pair(x-1,y));
-				}if(isPossible(x,y+1)) {
-					visited[x][y+1]=true;
-					arr[x][y+1]=arr[x][y]+1;
-					queue.offer(new Pair(x,y+1));
-				}if(isPossible(x,y-1)) {
-					visited[x][y-1]=true;
-					arr[x][y-1]=arr[x][y]+1;
-					queue.offer(new Pair(x,y-1));
-				}
-			}
-			
-		}
-		print();
-		if(cnt==1) {
-			while(!queue2.isEmpty()) {
-				Pair pair = queue2.poll();
-				int x =pair.x;
-				int y=  pair.y;
-				if(x==N&&y==M) {
-					break;
-				}
-				System.out.println("!");
-				if(isPossible(x+1,y)&&arr[x+1][y]!=1) {
-					queue2.offer(new Pair(x+1,y));
-					arr[x+1][y]=arr[x][y]+1;
-					visited[x+1][y]=true;
-				}if(isPossible(x-1,y)&&arr[x-1][y]!=1) {
-					queue2.offer(new Pair(x-1,y));
-					arr[x-1][y]=arr[x][y]+1;
-					visited[x-1][y]=true;
-				}if(isPossible(x,y+1)&&arr[x][y+1]!=1) {
-					queue2.offer(new Pair(x,y+1));
-					arr[x][y+1]=arr[x][y]+1;
-					visited[x][y+1]=true;
-				}if(isPossible(x,y-1)&&arr[x][y-1]!=1) {
-					queue2.offer(new Pair(x,y-1));
-					arr[x][y-1]=arr[x][y]+1;
-					visited[x][y-1]=true;
-				}
-				
-				print();
 			}
 		}
-		if(arr[N][M]==0)
-			System.out.println("-1");
-		else
-			System.out.println(arr[N][M]+1);
-		
-		
+		System.out.println(ans);
 	}
 	
-	public static boolean isPossible(int x, int y) {
-		if(x<1||x>N||y<1||y>M) {
-			return false;
-		}
-		if(visited[x][y])
-			return false;
-		return true;
-	}
 	public static void print() {
-		for(int i =1;i<=N;i++) {
-			for(int j =1;j<=M;j++) {
+		for(int i =0;i<N;i++) {
+			for(int j =0;j<M;j++) {
+				if(arr[i][j]==INF) {
+					System.out.print("INF ");
+				}else
 				System.out.print(arr[i][j]+" ");
 			}
 			System.out.println();
 		}
-		System.out.println("------------------------");
+	}
+	
+	public static boolean isPossible(int x, int y) {
+		if(x<0||x>=N||y<0||y>=M) {
+			return false;
+		}
+		return true;
 	}
 }
 
