@@ -1,29 +1,20 @@
 package Hash;
-
-import java.util.*;
 public class PhoneBook {
 
 	public boolean solution(String[] phone_book){
-		HashMap<Integer,String> hsmap =new HashMap<>();
-		int cnt =0;
-		for(String t : phone_book){
-			hsmap.put(cnt++, t);
-		}
-		for(int i = 0 ;i<hsmap.size();i++){
-			for(int j = 0 ;j<hsmap.size();j++){
-				System.out.println("!");
-				if(i!=j&&hsmap.get(i).length()<=phone_book[j].length()){
-					if(hsmap.get(i).startsWith(phone_book[j])){
-						return false;
-					}
-				}
-					
+		for(int i =0;i<phone_book.length;i++) {
+			for(int j=0;j<phone_book.length;j++) {
+				if(i==j)
+					continue;
+				if(phone_book[j].startsWith(phone_book[i]))
+					return false;
 			}
 		}
 		return true;
 	}
 	public static void main(String[] args) {
 		PhoneBook pb =new PhoneBook();
-		System.out.println(pb.solution(new String[]{"444","451","12344451"}));	
+		
+		System.out.println(pb.solution(new String[]{"12", "123", "1235", "567", "88"}));	
 	}
 }
