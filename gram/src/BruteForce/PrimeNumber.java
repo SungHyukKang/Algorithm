@@ -1,54 +1,69 @@
 package BruteForce;
+
 import java.util.*;
+
 public class PrimeNumber {
-	public int solution(String numbers){
-			ArrayList<String> arr =new ArrayList<>();
-			for(int i =0;i<numbers.length();i++){
-				arr.add(Character.toString(numbers.charAt(i)));
+	public static HashMap<Integer, Boolean> hsmap = new HashMap<>();
+	public static HashSet<String> hsset = new HashSet<>();
+	static String numb;
+	static boolean[] visit=new boolean[10];
+	public int solution(String numbers) {
+		int answer = 0;
+		ArrayList<Character> list = new ArrayList<>();
+		for (int i = 0; i < numbers.length(); i++) {
+			list.add(numbers.charAt(i));
+		}
+		
+		Collections.sort(list, (x, y) -> {
+			return x >= y ? -1 : 1;
+		});
+		StringBuilder sb = new StringBuilder();
+		for (char x : list)
+			sb.append(x);
+		int num = Integer.parseInt(sb.toString());
+		numb=String.valueOf(num);
+		boolean[] visited = new boolean[num + 1];
+		visited[0] = true;
+		visited[1] = true;
+		for (int i = 2; i < Math.sqrt(num); i++) {
+			for (int j = i * i; j <= num; j += i) {
+				if (!visited[j])
+					visited[j] = true;
 			}
-			System.out.println(arr);
-			HashSet<String> hsset = new HashSet<>(); 
-			StringBuffer sb =null;
-			for(int i = 0;i<arr.size();i++){
-				hsset.add(arr.get(i));
-				sb=new StringBuffer();
-				sb.append(arr.get(i));
-				for(int j =0;j<numbers.length();j++){
-					if(i!=j){
-						hsset.add(sb.append(arr.get(j)).toString());
-						System.out.println(sb);
-					}
-				}
+		}
+		dfs("");
+		for(String X : hsset) {
+			StringBuilder sb2 =new StringBuilder();
+			for(int i =0;i<X.length();i++) {
+				sb2.append(list.get(Integer.parseInt(Character.toString(X.charAt(i)))));
 			}
-			ArrayList<Integer> intarr = new ArrayList<>();
-			for(String X : hsset){
-				if(Integer.parseInt(X)==0||Integer.parseInt(X)==1)
-					continue;
-				intarr.add(Integer.parseInt(X));
+			hsmap.put(Integer.parseInt(sb2.toString()),true);
+		}
+		for (int i = 2; i <= num; i++) {
+			if (!visited[i]&&hsmap.get(i)!=null) {
+				answer++;
 			}
-			int cnt =0;
-			boolean tf = true;
-			for(int i = 0 ;i<intarr.size();i++){
-				tf=true;
-				if(intarr.get(i)>=3){
-				for(int j =2;j<=intarr.get(i)/2;j++){
-						if(intarr.get(i)%j==0){
-							tf=false;
-							break;
-						}
-					}
-				}
-				if(tf){
-					cnt++;
-				}
-			}
-			return cnt;
+		}
+		
+		
+		return answer;
 	}
 	
-	public static void main(String[] args){
-		
-		PrimeNumber pn =new PrimeNumber();
-		System.out.println(pn.solution("1235784"));
-		
+	public static void dfs(String X) {
+		for(int i =0;i<numb.length();i++) {
+			if(!visit[i]) {
+				visit[i]=true;
+				hsset.add(X+i);
+				dfs(X+i);
+				visit[i]=false;
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+
+		PrimeNumber pn = new PrimeNumber();
+		System.out.println(pn.solution("011"));
+
 	}
 }
