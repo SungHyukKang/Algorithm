@@ -1,135 +1,66 @@
 package Search;
 import java.util.*;
-
 public class CandidateKey {
-
-	public int solution(String[][] relation){
-		LinkedList ll = new LinkedList();
-		HashMap<String,Integer> hakbun =new HashMap<>();
-		HashMap<String,Integer> name =new HashMap<>();
-		HashMap<String,Integer> major =new HashMap<>();
-		HashMap<String,Integer> grade =new HashMap<>();
-		ArrayList<Node> arr = new ArrayList<>();
-		for(int i = 0 ;i<relation.length;i++){			
-			hakbun.put(relation[i][0], hakbun.getOrDefault(relation[i][0], 0)+1);
-			name.put(relation[i][1], name.getOrDefault(relation[i][1], 0)+1);
-			major.put(relation[i][2], major.getOrDefault(relation[i][2], 0)+1);
-			grade.put(relation[i][3], grade.getOrDefault(relation[i][3], 0)+1);
-		}
-		
-		
-		for(int i =0 ; i<relation.length;i++){
-			if(hakbun.size()!=relation.length){
-				ll.add(Integer.parseInt(relation[i][0]),relation[i][1],relation[i][2],Integer.parseInt(relation[i][3]));
-			}else if(name.size()!=relation.length){
-				ll.add(relation[i][1],relation[i][2],Integer.parseInt(relation[i][3]));
-			}else if(major.size()!=relation.length){
-				ll.add(relation[i][2],Integer.parseInt(relation[i][3]));
-			}else
-				ll.add(Integer.parseInt(relation[i][3]));
-		}
-		
-		
-		for(Node n = ll.head.next;n!=null;n=n.next){
-		}
-		
-		
-		return 0;
-	}
-	
-	public static void main(String[] args) {
-		
-		CandidateKey ck = new CandidateKey();
-		ck.solution(new String[][]{{"100", "ryan", "music", "2"}, {"200", "apeach", "math", "2"}, {"300", "tube", "computer", "3"}, {"400", "con", "computer", "4"}, {"500", "muzi", "music", "3"}, {"600", "apeach", "music", "2"}});
-	}
-	class Node{
-		Integer hakbun;
-		String name=null;;
-		String major=null;
-		Integer grade=null;
-		Node next = null;
-
-		Node(Integer grade , Node next){
-			this.grade = grade;
-			this.next =next;
-		}
-		
-		Node(String major , Integer grade , Node next){
-			this.major = major;
-			this.grade = grade;
-			this.next =next;
-		}
-		
-		Node(String name , String major , Integer grade , Node next){
-			this.name = name;
-			this.major = major;
-			this.grade = grade;
-			this.next =next;
-		}
-		Node(Integer hakbun , String name , String major , Integer grade , Node next){
-			this.hakbun=hakbun;
-			this.name = name;
-			this.major = major;
-			this.grade = grade;
-			this.next =next;
-		}
-		Node send(){
-			if(hakbun==null){
-				return new Node(this.name,this.major,this.grade,this.next);
-			}else if(major==null){
-				return new Node(this.major,this.grade,this.next);
-			}else if(grade==null){
-				return new Node(this.grade,this.next);
-			}else
-				return new Node(this.hakbun,this.name,this.major,this.grade,next);
-		}
-		
-	}
-	
-	class LinkedList{
-		Node head =null;
-		Node tail = null;
-		
-		LinkedList(){
-			this.head = new Node(null,null,null,null,null);
-			this.tail=head;
-		}
-		LinkedList add(String major,Integer grade){
-			tail.next=new Node(major,grade,null);
-			tail=tail.next;
-			return this;
-		}
-		
-		LinkedList add(Integer grade){
-			tail.next=new Node(grade,null);
-			tail=tail.next;
-			return this;
-		}
-		
-		LinkedList add(String name,String major,Integer grade){
-			tail.next=new Node(name,major,grade,null);
-			tail=tail.next;
-			return this;
-		}
-		
-		LinkedList add (Integer hakbun , String name , String major , Integer grade){
-			tail.next=new Node(hakbun,name,major,grade,null);
-			tail=tail.next;
-			return this;
-		}
-		void print(){
-			for(Node n = head.next;n!=null;n=n.next){
-				System.out.println(n.hakbun);
-				System.out.println(n.name);
-				System.out.println(n.major);
-				System.out.println(n.grade);
+	public static boolean[] visited;
+	public static HashMap<String, Integer> hsmap = new HashMap<>();
+	public static ArrayList<HashSet<Integer>> keys = new ArrayList<>();
+	public static Stack<String> stack = new Stack<>();
+	static int answer=0;
+	public int solution(String[][] relation) {
+		visited = new boolean[relation[0].length];
+		for (int i = 0; i < relation.length; i++) {
+			for (int j = 0; j < relation[i].length; j++) {
+				dfs(relation, 0, i, j+1, new HashSet<>());
 			}
 		}
-		
+		System.out.println(answer);
+		return keys.size();
+	}
+
+	public boolean isPossible(String[][] arr , HashSet<Integer> hsset) {
+		ArrayList<String> list = new ArrayList<>();
+		for(int i =0;i<arr.length;i++) {
+			String temp ="";
+			for(int x : hsset) {
+				temp+=arr[i][x];
+			}
+			if(!list.contains(temp)) {
+				list.add(temp);
+			}else
+				return false;
+		}
+		return true;
 	}
 	
-	
-	
-	
-
+	public void dfs(String[][] arr, int x, int r, int size,HashSet<Integer> hsset) {
+		if (size == hsset.size()) {
+			System.out.println(hsset);
+			if(!isPossible(arr , hsset)) {
+				return;
+			}
+			for (HashSet<Integer> key : keys) {
+				if(hsset.containsAll(key)) {
+					return;
+				}
+			}
+			keys.add(hsset);
+			answer++;
+			System.out.println(keys);
+			return;
+		}
+		for (int i = x; i < arr[0].length; i++) {
+			if (!visited[i]) {
+				visited[i] = true;
+				HashSet<Integer> set = new HashSet<>(hsset);
+				set.add(i);
+				dfs(arr, i, r, size, set);
+				visited[i] = false;
+			}
+		}
+	}
+	public static void main(String[] args) {
+		CandidateKey ck = new CandidateKey();
+		ck.solution(new String[][] {{"100","ryan","music","2"},{"200","apeach","math","2"},{"300","tube","computer","3"},{"400","con","computer","4"},{"500","muzi","music","3"},{"600","apeach","music","2"}}
+);
+	}
 }
