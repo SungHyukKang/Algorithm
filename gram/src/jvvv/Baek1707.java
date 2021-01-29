@@ -10,7 +10,7 @@ public class Baek1707 {
 	public static int[][] arr;
 	public static boolean[][] visited;
 	public static int[][] colors;
-	public static Queue<Integer> queue;
+	public static Queue<Integer> queue=new LinkedList<Integer>();
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int K = sc.nextInt();
@@ -25,7 +25,8 @@ public class Baek1707 {
 				arr[num][num2]=1;
 				arr[num2][num]=1;
 			}
-			queue=new LinkedList<Integer>();
+			System.out.println();
+			print();
 			bfs();
 		}
 	}
@@ -35,5 +36,12 @@ public class Baek1707 {
 			
 		}
 	}
-	
+	public static void print() {
+		for(int i =1;i<=V;i++) {
+			for(int j =1;j<=V;j++) {
+				System.out.print(arr[i][j]);
+			}
+			System.out.println();
+		}
+	}
 }

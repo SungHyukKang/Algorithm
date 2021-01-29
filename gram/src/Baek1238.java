@@ -34,7 +34,6 @@ public class Baek1238 {
 		}
 		for(int i =1;i<=N;i++) {
 			dijkstra(i);
-		
 		}
 		dijkstra2();
 		int max = 0;

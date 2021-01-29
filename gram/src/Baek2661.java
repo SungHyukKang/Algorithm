@@ -2,7 +2,6 @@ import java.io.*;
 public class Baek2661 {
 	static int N;
 	static StringBuilder sb=new StringBuilder(); 
-	
 	public static void main(String[] args)throws IOException {
 		BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
 		N=Integer.parseInt(br.readLine());
@@ -24,7 +23,6 @@ public class Baek2661 {
 			}
 		}
 	}
-	
 	public static boolean isPossible(String X) {
 		int num =X.length()/2;
 		for(int i=2;i<=num;i++) {
@@ -34,5 +32,4 @@ public class Baek2661 {
 		}
 		return true;
 	}
-	
 }

@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Programmers_CodeChallenge"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/95lin/Desktop/JEJU/ojdbc5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/95lin/Desktop/json-simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -22,16 +22,13 @@ public class Baek11651 {
 			list.add(new Pair11651(x,y));
 		}
 		
-		Collections.sort(list,new Comparator<Pair11651>() {
-			@Override
-			public int compare(Pair11651 arg0, Pair11651 arg1) {
+		Collections.sort(list,(Pair11651 arg0,Pair11651 arg1)->{
 				if(arg0.y<arg1.y) {
 					return -1;
 				}else if(arg0.y==arg1.y) {
 					return arg0.x<=arg1.x ? -1:1;
 				}
 				return 1;
-			}
 		});
 		
 		for(Pair11651 p : list){

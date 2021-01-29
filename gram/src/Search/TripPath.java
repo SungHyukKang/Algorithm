@@ -7,8 +7,10 @@ public class TripPath {
 	public static Stack<String> stack = new Stack<>();
 	public static String[] answer;
 	public static boolean tf =false;
+	static int cnt=0;
 	public static void dfs(String[][] tickets,String path) {
 		if(tf) {
+			cnt++;
 			return;
 		}
 		if(stack.size()==size+1) {
@@ -40,7 +42,7 @@ public class TripPath {
         });
         stack.push("ICN");
         dfs(tickets,"ICN");
-        
+        System.out.println(cnt);
         return answer;
     }
 	public static void main(String[] args) {

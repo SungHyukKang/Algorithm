@@ -4,20 +4,15 @@ import java.util.*;
 class Node implements Comparable<Node>{
 	int index ;
 	int dist;
-	
 	Node(int index , int dist){
 		this.index=index;
 		this.dist=dist;
 	}
-
 	@Override
 	public int compareTo(Node arg0) {
 		return this.dist<=arg0.dist ? -1 : 1;
 	}
-	
-	 
 }
-
 public class Baek1753 {
 	public static int V;
 	public static int E;
@@ -31,14 +26,11 @@ public class Baek1753 {
 		StringTokenizer st= new StringTokenizer(br.readLine());
 		V=Integer.parseInt(st.nextToken());
 		E=Integer.parseInt(st.nextToken());
-		visited = new boolean[V+1];
 		D= new int[V+1];
 		arr = new ArrayList<>();
 		for(int i=0;i<=V;i++) {
 			arr.add(new ArrayList<Node>());
 		}
-		
-		
 		int start =Integer.parseInt(br.readLine());
 		for(int i =0;i<E;i++) {
 			st=new StringTokenizer(br.readLine());
@@ -66,19 +58,17 @@ public class Baek1753 {
 		PriorityQueue<Node> pq = new PriorityQueue<Node>();
 		pq.offer(new Node(start,0));
 		D[start]=0;
-		
 		while(!pq.isEmpty()) {
 			int index = pq.peek().index;
-			int dist =pq.peek().dist;
+			int dist =-pq.peek().dist;
 			pq.poll();
-			if(dist>D[index]) {
-				continue;
-			}
+//			if(dist>D[index]) {
+//				continue;
+//			}
 			for(Node node : arr.get(index)) {
-				if(!visited[node.index]&&D[node.index]>node.dist+D[index]){
+				if(D[node.index]>node.dist+D[index]){
 					D[node.index]=node.dist+D[index];
-					pq.add(new Node(node.index,D[node.index]));
-					visited[node.index]=true;
+					pq.add(new Node(node.index,-D[node.index]));
 				}
 			}
 			

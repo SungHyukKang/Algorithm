@@ -27,7 +27,6 @@ class Node1774 implements Comparable<Node1774>{
 	public int compareTo(Node1774 o) {
 		return this.dist<=o.dist ? -1 : 1;
 	}
-	
 }
 public class Baek1774 {
 	static int N;

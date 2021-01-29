@@ -8,6 +8,8 @@ public class Baek1072 {
 		long X = Long.parseLong(st.nextToken());
 		long Y = Long.parseLong(st.nextToken());
 		long target = (Y*100/X)+1;
+		if(target==100 || target==101)
+			System.out.println("-1");
 		long cnt =0;
 		long left  = 1;
 		long right = 1000000000;

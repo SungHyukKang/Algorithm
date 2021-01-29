@@ -118,7 +118,6 @@ public class Baek17472 {
 			if(edge!=cnt)
 				sum+=d;
 		}
-		
 		if(edge+1!=cnt)
 			System.out.println("-1");
 		else

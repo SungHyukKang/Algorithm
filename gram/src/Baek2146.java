@@ -67,6 +67,7 @@ public class Baek2146 {
 				}
 			}
 		}
+		print(arr);
 		System.out.println(min-1);
 	}
 	public static void bfs() {

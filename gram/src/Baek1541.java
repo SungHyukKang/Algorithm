@@ -22,6 +22,7 @@ public class Baek1541 {
 				list.set(j,list.get(j)+list.get(j+1));
 				list.remove(j+1);
 				j--;
+				System.out.println(list);
 			}
 			j++;
 		}

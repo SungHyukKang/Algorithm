@@ -8,6 +8,7 @@ public class Baek9663 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
+		
 		for(int i =0;i<N;i++){
 			int[] arr = new int[N];
 			arr[0]=i;

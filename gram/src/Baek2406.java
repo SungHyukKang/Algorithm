@@ -20,7 +20,6 @@ class Node2406 implements Comparable<Node2406>{
 }
 
 public class Baek2406 {
-
 	public static int[] parent;
 	
 	public static int stoi(String X ) {return Integer.parseInt(X);}
@@ -46,7 +45,6 @@ public class Baek2406 {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n =	stoi(st.nextToken());
 		int m =	stoi(st.nextToken());
-		boolean[] visited = new boolean[n+1];
 		int K = n;
 		PriorityQueue<Node2406> pq = new PriorityQueue<Node2406>();
 		parent = new int[n+1];
@@ -84,12 +82,10 @@ public class Baek2406 {
 			if(a==b)
 				continue;
 			union(s,e);
-//			if(!visited[s]&&!visited[e]) {
 				sum+=d;
 				sb.append(s+" "+e+"\n");
-//			}
+			}
 			K--;
-		}
 		System.out.println(sum+" "+(n-K));
 		System.out.println(sb);
 	}

@@ -39,8 +39,8 @@ public class Baek11725 {
 			if(!visited[X]) {
 				visited[X]=true;
 				arr[X]=start;
-				dfs(X);
 				cnt++;
+				dfs(X);
 			}
 		}
 	}

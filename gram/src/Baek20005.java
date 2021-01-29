@@ -97,7 +97,6 @@ public class Baek20005 {
 							q.offer(new PairE(mx,my));
 						}
 					}
-					
 				}
 			}
 			if(D[boss.x][boss.y]!=INF)

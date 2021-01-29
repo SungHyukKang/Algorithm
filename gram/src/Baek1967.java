@@ -58,6 +58,9 @@ public class Baek1967 {
 		D[0]=-1;
 		D[restart]=-1;
 		Arrays.sort(D);
+		D[D.length-1]=-1;
+		Arrays.sort(D);
+		
 		System.out.println(D[D.length-1]);
 	}
 

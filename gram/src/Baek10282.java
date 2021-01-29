@@ -1,8 +1,19 @@
 import java.util.*;
-
-import javafx.scene.layout.Priority;
-
 import java.io.*;
+
+//class Node implements Comparable<Node>{
+//	int index ;
+//	int dist;
+//	Node(int index , int dist){
+//		this.index=index;
+//		this.dist=dist;
+//	}
+//	@Override
+//	public int compareTo(Node arg0) {
+//		return this.dist<=arg0.dist ? -1 : 1;
+//	}
+//}
+
 public class Baek10282 {
 	static int n;
 	static int d;

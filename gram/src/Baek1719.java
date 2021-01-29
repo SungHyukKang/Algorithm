@@ -79,7 +79,6 @@ public class Baek1719 {
 				for(int k=j; k!=i;k=path[i][k]) {
 					z=k;
 				}
-				
 				System.out.print(z+" ");
 			}
 			System.out.println();

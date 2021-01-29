@@ -1,22 +1,22 @@
 import java.util.*;
 import java.io.*;
 
-class Node3 implements Comparable<Node3>{
-	int i;
-	int j;
-	int dist;
-	
-	
-	Node3(int i , int j ,int dist){
-		this.i=i;
-		this.j=j;
-		this.dist=dist;
-	}
-	@Override
-	public int compareTo(Node3 arg0) {
-		return this.dist<=arg0.dist ? -1 : 1;
-	}
-}
+//class Node3 implements Comparable<Node3>{
+//	int i;
+//	int j;
+//	int dist;
+//	
+//	
+//	Node3(int i , int j ,int dist){
+//		this.i=i;
+//		this.j=j;
+//		this.dist=dist;
+//	}
+//	@Override
+//	public int compareTo(Node3 arg0) {
+//		return this.dist<=arg0.dist ? -1 : 1;
+//	}
+//}
 
 
 public class Baek2665 {

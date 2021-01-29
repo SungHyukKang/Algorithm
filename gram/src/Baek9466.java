@@ -47,8 +47,6 @@ public class Baek9466 {
 				}
 			}
 		}
-
 		visited2[start]=true;
-		
 	}
 }
