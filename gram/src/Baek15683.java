@@ -15,50 +15,37 @@ public class Baek15683 {
 	static int N;
 	static int M;
 	static int[][] arr;
-	static int[][] cpy;
 	static ArrayList<Pair15683> list = new ArrayList<>();
-	static boolean[][] visited;
-	static int[] size = { 0, 4, 2, 4, 4, 4 };
 	static int min = 210000000;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		arr = new int[N][M];
-		cpy = new int[N][M];
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < M; j++) {
 				arr[i][j] = Integer.parseInt(st.nextToken());
-				cpy[i][j] = arr[i][j];
 				if (arr[i][j] != 0 && arr[i][j] != 6) {
 					list.add(new Pair15683(i, j));
 				}
 			}
 		}
 		dfs(0);
-		System.out.println(min);
+		bw.write(min + "");
+		bw.flush();
+		bw.close();
+		br.close();
+
 	}
 
-	public static void print() {
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = 0; j < arr[i].length; j++) {
-				if (arr[i][j] == -1)
-					System.out.print("-1 ");
-				else
-					System.out.print(arr[i][j] + "  ");
-			}
-			System.out.println();
-		}
-		System.out.println("=========================");
-	}
-
-	public static void copyMap(int[][] ccpy) {
+	public static void copyMap(int[][] cpy) {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				arr[i][j] = ccpy[i][j];
+				arr[i][j] = cpy[i][j];
 			}
 		}
 	}
@@ -71,21 +58,20 @@ public class Baek15683 {
 				if (arr[x][i] == 0)
 					arr[x][i] = -1;
 			}
-		} else if (dir == 1) { // 남
-			for (int i = x + 1; i < N; i++) {
-				if (arr[i][y] == 6)
-					break;
-				if (arr[i][y] == 0)
-					arr[i][y] = -1;
-			}
-		} else if (dir == 2) { // 서
+		} else if (dir == 1) { // 서
 			for (int i = y - 1; i >= 0; i--) {
 				if (arr[x][i] == 6)
 					break;
 				if (arr[x][i] == 0)
 					arr[x][i] = -1;
 			}
-
+		} else if (dir == 2) { // 남
+			for (int i = x + 1; i < N; i++) {
+				if (arr[i][y] == 6)
+					break;
+				if (arr[i][y] == 0)
+					arr[i][y] = -1;
+			}
 		} else { // 북
 			for (int i = x - 1; i >= 0; i--) {
 				if (arr[i][y] == 6)
@@ -100,58 +86,63 @@ public class Baek15683 {
 		if (cnt == list.size()) {
 			int count = 0;
 			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < M; j++) {
-					if (arr[i][j] == 0)
+				for (int j = 0; j < M; j++)
+					if (arr[i][j] == 0) {
 						count++;
-				}
+					}
 			}
-			min = Math.min(count, min);
+			min = Math.min(min, count);
 			return;
 		}
 
-		int x = list.get(cnt).x;
-		int y = list.get(cnt).y;
+		Pair15683 p = list.get(cnt);
+		int x = p.x;
+		int y = p.y;
 		int cctv = arr[x][y];
-		int[][] ccpy = new int[N][M];
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				ccpy[i][j] = arr[i][j];
+		int[][] cpy = new int[N][M];
+		for (int i = 0; i < cpy.length; i++) {
+			for (int j = 0; j < cpy[i].length; j++) {
+				cpy[i][j] = arr[i][j];
 			}
 		}
-		if (arr[x][y] == 1) {
-			for (int i = 0; i < size[cctv]; i++) {
+
+		if (cctv == 1) {
+			for (int i = 0; i < 4; i++) {
 				direction(i, x, y);
 				dfs(cnt + 1);
-				copyMap(ccpy);
+				copyMap(cpy);
 			}
-		} else if (arr[x][y] == 2) {
-			for (int i = 0; i < size[cctv]; i++) {
-				direction(i, x, y);
-				direction(i + 2, x, y);
+		} else if (cctv == 2) {
+			for (int i = 0; i < 2; i++) {
+				int c = i * 2;
+				direction(c, x, y);
+				direction(c + 1, x, y);
 				dfs(cnt + 1);
-				copyMap(ccpy);
+				copyMap(cpy);
 			}
-		} else if (arr[x][y] == 3) {
-			for (int i = 0; i < size[cctv]; i++) {
-				direction(i, x, y);
-				direction((i + 1) % 4, x, y);
+		} else if (cctv == 3) {
+			for (int i = 0; i < 4; i++) {
+				direction(i % 2, x, y);
+				direction(i < 2 ? 2 : 3, x, y);
+
 				dfs(cnt + 1);
-				copyMap(ccpy);
+				copyMap(cpy);
 			}
-		} else if (arr[x][y] == 4) {
-			for (int i = 0; i < size[cctv]; i++) {
+		} else if (cctv == 4) {
+			for (int i = 0; i < 4; i++) {
 				direction(i, x, y);
 				direction((i + 1) % 4, x, y);
 				direction((i + 2) % 4, x, y);
 				dfs(cnt + 1);
-				copyMap(ccpy);
+				copyMap(cpy);
 			}
 		} else {
-			for (int i = 0; i < size[cctv]; i++) {
+			for (int i = 0; i < 4; i++) {
 				direction(i, x, y);
 			}
 			dfs(cnt + 1);
 		}
 
 	}
+
 }
