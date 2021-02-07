@@ -1,6 +1,6 @@
 import java.util.*;
 
-class 순위검색 {
+class 메뉴리뉴얼 {
 	static HashMap<String, Integer> hsmap = new HashMap<>();
 	static boolean[] visited;
 	static char[] order;
@@ -60,7 +60,7 @@ class 순위검색 {
 	}
 
 	public static void main(String[] args) {
-		순위검색 pb = new 순위검색();
+		메뉴리뉴얼 pb = new 메뉴리뉴얼();
 		pb.solution(new String[] { "ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH" }, new int[] { 2, 3, 4 });
 
 	}
