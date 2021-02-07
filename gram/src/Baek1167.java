@@ -39,16 +39,8 @@ public class Baek1167 {
 				list.get(s).add(new Node1167(e, d));
 			}
 		}
-		int root = 0;
-		for (int i = 1; i <= V; i++) {
-			if (list.get(i).size() == 1) {
-				root = i;
-				break;
-			}
-		}
-
-		dfs(root, 0);
-		visited[root] = true;
+		visited[1] = true;
+		dfs(1, 0);
 		visited = new boolean[V + 1];
 		visited[v1] = true;
 		dfs2(v1, 0);
