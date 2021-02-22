@@ -1,42 +1,49 @@
 import java.util.*;
 import java.io.*;
+
 public class Baek6236 {
-	public static int stoi(String X) {return Integer.parseInt(X);}
-	public static void main(String[] args)throws IOException {
+	public static int stoi(String X) {
+		return Integer.parseInt(X);
+	}
+
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = stoi(st.nextToken());
 		int M = stoi(st.nextToken());
-		int[] arr = new int[N];
+		Integer[] arr = new Integer[N];
 		int left = 0;
-		int right =0;
-		for(int i =0;i<N;i++) {
-			arr[i]=stoi(br.readLine());
-			right+=arr[i];
-			left = arr[i]>left ? arr[i] : left;
+		int right = 0;
+		for (int i = 0; i < N; i++) {
+			arr[i] = Integer.parseInt(br.readLine());
+			right += arr[i];
+			left = Math.min(left, arr[i]);
 		}
-		while(left<=right) {
-			int mid=(left+right)/2;
-			int sum = 0;
-			int cnt = 0;
-			System.out.println(left);
-			System.out.println(right);
-			for(int i =0;i<N;i++) {
-				if(sum+arr[i]>mid) {
-					sum=0;
+		int ans = right;
+		while (left <= right) {
+			int mid = (left + right) / 2;
+			int charge = mid;
+			int cnt = 1;
+			for (int i = 0; i < N; i++) {
+				if (arr[i] > mid) {
+					cnt = M + 1;
+					break;
+				}
+				if (charge < arr[i]) {
+					charge = mid;
 					cnt++;
-				} 
-				sum+= arr[i];
+				}
+				charge -= arr[i];
 			}
-			if(sum!=0) 
-				cnt++;
-			if(cnt<=M)
-				right=mid -1;
-			else
-				left = mid+1;
+			if (M >= cnt) {
+				ans = Math.min(ans, mid);
+				right = mid - 1;
+			} else
+				left = mid + 1;
 		}
-		System.out.println(left);
-		
+
+		System.out.println(ans);
+
 	}
 
 }
