@@ -1,16 +1,4 @@
-import java.util.*;
 import java.io.*;
-
-class Pair8976 {
-	int x, y, cnt;
-
-	public Pair8976(int x, int y, int cnt) {
-		this.x = x;
-		this.y = y;
-		this.cnt = cnt;
-	}
-
-}
 
 public class Baek8976 {
 
