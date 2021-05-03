@@ -13,7 +13,7 @@ public class Baek15988 {
 		for (int i = 4; i <= 1000000; i++) {
 			dp[i] = (dp[i - 1] + dp[i - 2] + dp[i - 3]) % 1000000009;
 		}
-		for (int t = 0; t < T; t++) {
+		for (int t = 0; t < T; t++) { 
 			int N = Integer.parseInt(br.readLine());
 			sb.append(dp[N] + "\n");
 		}
