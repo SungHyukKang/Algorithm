@@ -20,11 +20,11 @@ public class Baek1600 {
 		}
 		Queue<int[]> q = new LinkedList<>();
 		q.offer(new int[] { 0, 0, K, 0 });
-		boolean[][][] visited = new boolean[W][H][K + 1];
+		boolean[][][] visited = new boolean[H][W][K + 1];
 		visited[0][0][K] = true;
 		int[] dx = { 0, 1, 0, -1, -1, -2, -1, -2, 1, 2, 1, 2 };
 		int[] dy = { 1, 0, -1, 0, -2, -1, 2, 1, -2, -1, 2, 1 };
-		int min = 987654321;
+		int answer = -1;
 		while (!q.isEmpty()) {
 			int[] p = q.poll();
 			int x = p[0];
@@ -32,38 +32,39 @@ public class Baek1600 {
 			int k = p[2];
 			int cnt = p[3];
 			if (x == H - 1 && y == W - 1) {
-				System.out.println(cnt);
+				answer = cnt;
 				break;
 			}
 			for (int i = 0; i < dx.length; i++) {
 				int nx = dx[i] + x;
 				int ny = dy[i] + y;
+				if (k == 0 && i > 3)
+					break;
 				if (isPossible(nx, ny) && map[nx][ny] != 1) {
 					if (k > 0) {
-						if (i < 4) {
-							q.offer(new int[] { nx, ny, k, cnt + 1 });
-							visited[nx][ny][k] = true;
-						} else {
+						if (i > 3) {
 							if (!visited[nx][ny][k - 1]) {
 								q.offer(new int[] { nx, ny, k - 1, cnt + 1 });
 								visited[nx][ny][k - 1] = true;
 							}
+						} else {
+							if (!visited[nx][ny][k]) {
+								q.offer(new int[] { nx, ny, k, cnt + 1 });
+								visited[nx][ny][k] = true;
+							}
 						}
 					} else {
-						if (i > 3)
-							break;
-						else {
+						if (!visited[nx][ny][k]) {
 							q.offer(new int[] { nx, ny, k, cnt + 1 });
 							visited[nx][ny][k] = true;
 						}
 					}
 				}
+
 			}
 		}
-		if (min == 987654321)
-			System.out.println(-1);
-		else
-			System.out.println(min);
+
+		System.out.println(answer);
 	}
 
 	public static boolean isPossible(int x, int y) {
