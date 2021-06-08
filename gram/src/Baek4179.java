@@ -23,6 +23,12 @@ public class Baek4179 {
 	static int R;
 	static int C;
 	static char[][] map;
+	static Queue<Pair4179> q = new LinkedList<>();
+	static Queue<Pair4179> f = new LinkedList<>();
+	static int[] nx = { 0, 1, 0, -1 };
+	static int[] ny = { 1, 0, -1, 0 };
+	static boolean[][] visited = new boolean[R][C];
+	static int answer = -1;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,10 +36,7 @@ public class Baek4179 {
 		R = Integer.parseInt(st.nextToken());
 		C = Integer.parseInt(st.nextToken());
 		map = new char[R][C];
-		int answer = -1;
-		Queue<Pair4179> q = new LinkedList<>();
-		Queue<Pair4179> f = new LinkedList<>();
-		boolean[][] visited = new boolean[R][C];
+		visited = new boolean[R][C];
 		for (int i = 0; i < R; i++) {
 			String X = br.readLine();
 			for (int j = 0; j < C; j++) {
@@ -48,51 +51,59 @@ public class Baek4179 {
 			}
 		}
 
-		int[] nx = { 0, 1, 0, -1 };
-		int[] ny = { 1, 0, -1, 0 };
-		boolean tf = false;
 		while (true) {
-			if (tf)
-				break;
 			if (q.isEmpty())
 				break;
-			int size = f.size();
-			while (size-- > 0) {
-				Pair4179 fp = f.poll();
-				int x = fp.x;
-				int y = fp.y;
 
-				for (int i = 0; i < 4; i++) {
-					int dx = nx[i] + x;
-					int dy = ny[i] + y;
-					if (isPossible(dx, dy) && map[dx][dy] == '.') {
-						f.offer(new Pair4179(dx, dy));
-						map[dx][dy] = 'F';
-					}
-				}
-			}
-			size = q.size();
-			while (size-- > 0) {
-				Pair4179 p = q.poll();
-				int x = p.x;
-				int y = p.y;
-				int cnt = p.cnt;
-				for (int i = 0; i < 4; i++) {
-					int dx = nx[i] + x;
-					int dy = ny[i] + y;
-					if (isPossible(dx, dy) && map[dx][dy] == '.' && !visited[dx][dy]) {
-						q.offer(new Pair4179(dx, dy, cnt + 1));
-						visited[dx][dy] = true;
-					} else if (!isPossible(dx, dy)) {
-						answer = cnt + 1;
-						tf = true;
-						break;
-					}
-				}
-			}
+			moveFire();
+
+			if (moveJihun())
+				break;
 
 		}
 		System.out.println(answer == -1 ? "IMPOSSIBLE" : answer);
+	}
+
+	public static void moveFire() {
+		int size = f.size();
+		while (size-- > 0) {
+			Pair4179 fp = f.poll();
+			int x = fp.x;
+			int y = fp.y;
+
+			for (int i = 0; i < 4; i++) {
+				int dx = nx[i] + x;
+				int dy = ny[i] + y;
+				if (isPossible(dx, dy) && map[dx][dy] == '.') {
+					f.offer(new Pair4179(dx, dy));
+					map[dx][dy] = 'F';
+				}
+			}
+		}
+	}
+
+	public static boolean moveJihun() {
+		boolean tf = false;
+		int size = q.size();
+		while (size-- > 0) {
+			Pair4179 p = q.poll();
+			int x = p.x;
+			int y = p.y;
+			int cnt = p.cnt;
+			for (int i = 0; i < 4; i++) {
+				int dx = nx[i] + x;
+				int dy = ny[i] + y;
+				if (isPossible(dx, dy) && map[dx][dy] == '.' && !visited[dx][dy]) {
+					q.offer(new Pair4179(dx, dy, cnt + 1));
+					visited[dx][dy] = true;
+				} else if (!isPossible(dx, dy)) {
+					answer = cnt + 1;
+					tf = true;
+					break;
+				}
+			}
+		}
+		return tf;
 	}
 
 	public static void print() {
