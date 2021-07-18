@@ -2,29 +2,45 @@ import java.util.*;
 import java.io.*;
 
 public class Baek14728 {
+	static int N;
+	static int T;
+	static int[][] dp;
+	static int[][] arr;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int T = Integer.parseInt(st.nextToken());
-		int[] w = new int[N + 1];
-		int[] v = new int[N + 1];
+		N = Integer.parseInt(st.nextToken());
+		T = Integer.parseInt(st.nextToken());
+		arr = new int[N + 1][2];
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
-			w[i] = Integer.parseInt(st.nextToken());
-			v[i] = Integer.parseInt(st.nextToken());
+			arr[i][0] = Integer.parseInt(st.nextToken());
+			arr[i][1] = Integer.parseInt(st.nextToken());
 		}
-		int[][] arr = new int[N + 1][T + 1];
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= T; j++) {
-				arr[i][j] = arr[i - 1][j];
-				if (j >= w[i]) {
-					arr[i][j] = Math.max(arr[i - 1][j], arr[i - 1][j - w[i]] + v[i]);
-				}
-			}
+		dp = new int[N + 1][T + 1];
+		for (int i = 0; i <= N; i++) {
+			Arrays.fill(dp[i], -1);
 		}
-		System.out.println(arr[N][T]);
+		System.out.println(dfs(1, T));
 	}
 
+	public static int dfs(int idx, int t) {
+		if (idx == N) {
+			if (arr[N][0] <= t) {
+				return arr[N][1];
+			} else
+				return 0;
+		}
+		if (dp[idx][t] != -1)
+			return dp[idx][t];
+
+		if (t >= arr[idx][0]) {
+			dp[idx][t] = Math.max(dfs(idx + 1, t), dfs(idx + 1, t - arr[idx][0]) + arr[idx][1]);
+		} else {
+			return dfs(idx + 1, t);
+		}
+
+		return dp[idx][t];
+	}
 }
