@@ -28,7 +28,6 @@ public class SWEA1885 {
 			for (int i = 2; i <= N; i++) {
 				int p = Integer.parseInt(st.nextToken());
 				adjlist.get(p).add(i);
-				adjlist.get(i).add(p);
 			}
 			bfs(1, 0);
 			connecting();
