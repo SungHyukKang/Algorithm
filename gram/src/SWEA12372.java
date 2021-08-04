@@ -11,11 +11,10 @@ class UserSolution12372 {
 	}
 
 	public void addUser(int uID, int income) {
-
 		users[userCount][0] = uID;
 		users[userCount][1] = income;
 		int current = userCount;
-		while (current > 0 && users[current][1] > users[(current - 1) / 2][1]) {
+		while (current > 0 && users[current][1] >= users[(current - 1) / 2][1]) {
 			if (users[current][1] == users[(current - 1) / 2][1]) {
 				if (users[current][0] < users[(current - 1) / 2][0]) {
 					int tId = users[(current - 1) / 2][0];
@@ -25,6 +24,8 @@ class UserSolution12372 {
 					users[current][0] = tId;
 					users[current][1] = tIc;
 					current = (current - 1) / 2;
+				} else {
+					break;
 				}
 			} else {
 				int tId = users[(current - 1) / 2][0];
@@ -39,40 +40,50 @@ class UserSolution12372 {
 		userCount++;
 	}
 
-	int[] pop(int[][] heap) {
+	int[] pop() {
 		int banbok = userCount >= 10 ? 10 : userCount;
 		int[] result = new int[10];
 		int heapSize = userCount;
+		int[][] temp = new int[10][2];
 		for (int i = 0; i < banbok; i++) {
-			int value = heap[0][0];
-//			System.out.print(heap[0][1] + " ");
+			int value = users[0][0];
+			temp[i][0] = users[0][0];
+			temp[i][1] = users[0][1];
 			result[i] = value;
 			heapSize--;
-			heap[0][0] = heap[heapSize][0];
-			heap[0][1] = heap[heapSize][1];
+			users[0][0] = users[heapSize][0];
+			users[0][1] = users[heapSize][1];
 			int current = 0;
 			while (current * 2 + 1 < heapSize) {
 				int child;
 				if (current * 2 + 2 == heapSize) {
 					child = current * 2 + 1;
 				} else {
-					if (heap[current * 2 + 1][1] == heap[current * 2 + 2][1]) {
-						child = heap[current * 2 + 1][0] < heap[current * 2 + 2][0] ? current * 2 + 1 : current * 2 + 2;
+					if (users[current * 2 + 1][1] == users[current * 2 + 2][1]) {
+						child = users[current * 2 + 1][0] < users[current * 2 + 2][0] ? current * 2 + 1
+								: current * 2 + 2;
 					} else {
-						child = heap[current * 2 + 1][1] > heap[current * 2 + 2][1] ? current * 2 + 1 : current * 2 + 2;
+						child = users[current * 2 + 1][1] > users[current * 2 + 2][1] ? current * 2 + 1
+								: current * 2 + 2;
 					}
 				}
-				if (heap[current][1] > heap[child][1])
+				if (users[current][1] > users[child][1])
 					break;
-				int tempId = heap[current][0];
-				int tempIc = heap[current][1];
-				heap[current][0] = heap[child][0];
-				heap[current][1] = heap[child][1];
-				heap[child][0] = tempId;
-				heap[child][1] = tempIc;
+				int tempId = users[current][0];
+				int tempIc = users[current][1];
+				users[current][0] = users[child][0];
+				users[current][1] = users[child][1];
+				users[child][0] = tempId;
+				users[child][1] = tempIc;
 				current = child;
 			}
+			userCount--;
 		}
+
+		for (int i = 0; i < banbok; i++) {
+			addUser(temp[i][0], temp[i][1]);
+		}
+
 //		System.out.println();
 //		for (int i = 0; i < banbok; i++) {
 //			System.out.print(result[i] + " ");
@@ -82,12 +93,7 @@ class UserSolution12372 {
 	}
 
 	int getTop10(int[] result) {
-		int[][] tUsers = new int[userCount][2];
-		for (int i = 0; i < userCount; i++) {
-			tUsers[i][0] = users[i][0];
-			tUsers[i][1] = users[i][1];
-		}
-		int[] cpy = pop(tUsers);
+		int[] cpy = pop();
 		for (int i = 0; i < 10; i++) {
 			result[i] = cpy[i];
 		}
