@@ -44,15 +44,11 @@ public class Baek21772 {
 			int ny = dy[i] + y;
 			if (isPossible(nx, ny) && !visited[nx][ny] && map[nx][ny] != '#') {
 				if (map[nx][ny] == 'S') {
-					visited[nx][ny] = true;
 					map[nx][ny] = '.';
 					dfs(nx, ny, cnt + 1, t - 1);
 					map[nx][ny] = 'S';
-					visited[nx][ny] = false;
 				} else {
-					visited[nx][ny] = true;
 					dfs(nx, ny, cnt, t - 1);
-					visited[nx][ny] = false;
 				}
 			}
 		}
