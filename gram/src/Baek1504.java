@@ -1,88 +1,80 @@
 import java.util.*;
 import java.io.*;
-//class Node implements Comparable<Node>{
-//	int index ;
-//	int dist;
-//	Node(int index , int dist){
-//		this.index=index;
-//		this.dist=dist;
-//	}
-//	@Override
-//	public int compareTo(Node arg0) {
-//		return this.dist<=arg0.dist ? -1 : 1;
-//	}
-//}
 
 public class Baek1504 {
 	static int N;
 	static int E;
-	static ArrayList<ArrayList<Node>> arr = new ArrayList<>();
-	static int[] D;
-	static final int INF = 999999;
-	public static void main(String[] args)throws IOException {
+	static ArrayList<ArrayList<Node>> adjlist = new ArrayList<>();
+	static int[][] D;
+	static final int INF = Integer.MAX_VALUE;
+
+	static class Node implements Comparable<Node> {
+		int idx;
+		int d;
+
+		public Node(int idx, int d) {
+			this.idx = idx;
+			this.d = d;
+		}
+
+		@Override
+		public int compareTo(Node arg0) {
+			return this.d - arg0.d;
+		}
+
+	}
+
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N=Integer.parseInt(st.nextToken());
-		E=Integer.parseInt(st.nextToken());
-		D=new int[N+1];
-		for(int i =0;i<=N;i++) {
-			arr.add(new ArrayList<Node>());
-			D[i]=INF;
+		N = Integer.parseInt(st.nextToken());
+		E = Integer.parseInt(st.nextToken());
+		D = new int[N + 1][N + 1];
+		for (int i = 0; i <= N; i++) {
+			adjlist.add(new ArrayList<Node>());
+			Arrays.fill(D[i], INF);
 		}
-		for(int i =0;i<E;i++) {
+		for (int i = 0; i < E; i++) {
 			st = new StringTokenizer(br.readLine());
 			int num = Integer.parseInt(st.nextToken());
 			int num2 = Integer.parseInt(st.nextToken());
 			int num3 = Integer.parseInt(st.nextToken());
-			arr.get(num).add(new Node(num2,num3));
-			arr.get(num2).add(new Node(num,num3));
+			adjlist.get(num).add(new Node(num2, num3));
+			adjlist.get(num2).add(new Node(num, num3));
 		}
 		st = new StringTokenizer(br.readLine());
-		int start=Integer.parseInt(st.nextToken());
-		int end=Integer.parseInt(st.nextToken());
-		int sum=0;	
-		int sum2=0;	
-		dijkstra(1);
-		sum+=D[start];
-		sum2+=D[end];
-		for(int i =0;i<=N;i++) {
-			D[i]=INF;
+		int v1 = Integer.parseInt(st.nextToken());
+		int v2 = Integer.parseInt(st.nextToken());
+		dijkstra(1, 1);
+		dijkstra(v1, v1);
+		dijkstra(v2, v2);
+		int first = INF;
+		if (D[1][v1] != INF && D[v1][v2] != INF && D[v2][N] != INF) {
+			first = (D[1][v1] + D[v1][v2] + D[v2][N]);
+			first = (first <= 0 || first == INF) ? INF : first;
 		}
-		dijkstra(start);
-		sum+=D[end];
-		sum2+=D[N];
-		for(int i =0;i<=N;i++) {
-			D[i]=INF;
+		int second = INF;
+		if (D[1][v2] != INF && D[v2][v1] != INF && D[v1][N] != INF) {
+			second = D[1][v2] + D[v2][v1] + D[v1][N];
 		}
-		dijkstra(end);
-		sum2+=D[start];
-		sum+=D[N];
-		for(int i =0;i<=N;i++) {
-			D[i]=INF;
-		}
-		int answer =Math.min(sum,sum2);
-		if(answer<=0||answer>=INF) {
-			answer=-1;
-		}
-		System.out.println(answer);
-		
+		int answer = Math.min(first, second);
+		System.out.println(answer == INF ? -1 : answer);
 	}
-	public static void dijkstra(int start) {
+
+	public static void dijkstra(int index, int start) {
 		PriorityQueue<Node> pq = new PriorityQueue<>();
-		pq.offer(new Node(start,0));
-		D[start]=0;
-		while(!pq.isEmpty()) {
-			Node n = pq.poll();
-			int index = n.index;
-			int dist =  n.dist;
-			if(dist>D[index]) {
+		pq.offer(new Node(start, 0));
+		D[index][start] = 0;
+		while (!pq.isEmpty()) {
+			Node cur = pq.poll();
+			int idx = cur.idx;
+			int d = cur.d;
+			if (d > D[index][idx])
 				continue;
-			}
-			
-			for(Node node : arr.get(index)) {
-				if(D[node.index]>node.dist+D[index]) {
-					D[node.index]=node.dist+D[index];
-					pq.offer(new Node(node.index,D[node.index]));
+			for (Node next : adjlist.get(idx)) {
+				if (D[index][next.idx] > next.d + D[index][idx]) {
+					D[index][next.idx] = next.d + D[index][idx];
+					pq.offer(new Node(next.idx, D[index][next.idx]));
 				}
 			}
 		}
