@@ -3,51 +3,38 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Baek5014 {
-	public static boolean[] visited;
-	public static int F;
-	public static int S;
-	public static int G;
-	public static int U;
-	public static int D;
-	public static Queue<Integer> queue = new LinkedList<>();
-	
-	public static void main(String[] args)throws Exception {
-		BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		F =Integer.parseInt(st.nextToken());
-		S = Integer.parseInt(st.nextToken());
-		G =Integer.parseInt(st.nextToken());
-		U =Integer.parseInt(st.nextToken());
-		D =Integer.parseInt(st.nextToken());
-		int cnt=0;
-		visited = new boolean[F+1];
-		queue.offer(S);
-		visited[S]=true;
-		int answer=-1;
-		while(!queue.isEmpty()) {
-			int pre = queue.poll();
-			if(pre==G) {
-				answer=cnt;
+		int F = Integer.parseInt(st.nextToken());
+		int S = Integer.parseInt(st.nextToken());
+		int G = Integer.parseInt(st.nextToken());
+		int U = Integer.parseInt(st.nextToken());
+		int D = Integer.parseInt(st.nextToken());
+		boolean[] visited = new boolean[F + 1];
+		Queue<int[]> q = new LinkedList<>();
+		q.offer(new int[] { S, 0 });
+		visited[S] = true;
+		while (!q.isEmpty()) {
+			int[] p = q.poll();
+			int cur = p[0];
+			int cnt = p[1];
+			if (cur == G) {
+				System.out.println(cnt);
+				return;
 			}
-			if(isPossible(pre+U)&&pre+U<=G&&!visited[pre+U]) {
-				visited[pre+U]=true;
-				queue.offer(pre+U);
-				cnt++;
-			}else if(isPossible(pre-D)&&pre+U>G&&!visited[pre-D]) {
-				queue.offer(pre-D);
-				visited[pre-D]=true;
-				cnt++;
+			int up = cur + U;
+			int down = cur - D;
+			if (up <= F && !visited[up]) {
+				visited[up] = true;
+				q.offer(new int[] { up, cnt + 1 });
+			}
+			if (down > 0 && !visited[down]) {
+				visited[down] = true;
+				q.offer(new int[] { down, cnt + 1 });
 			}
 		}
-		if(answer==-1)
-			System.out.println("use the stairs");
-		else
-			System.out.println(answer);
+		System.out.println("use the stairs");
 	}
-	public static boolean isPossible(int x) {
-		if(x>F||x<1)
-			return false;
-		return true;
-	}
-	
 }
