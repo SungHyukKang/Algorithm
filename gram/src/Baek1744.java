@@ -1,57 +1,42 @@
 import java.util.*;
 import java.io.*;
+
 public class Baek1744 {
-	
-	static int stoi(String X) {return Integer.parseInt(X);}
-	public static void main(String[] args)throws IOException {
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Queue<Integer> list = new PriorityQueue<>(Collections.reverseOrder());
-		LinkedList<Integer> qplus = new LinkedList<>();
-		LinkedList<Integer> qminus   = new LinkedList<>();
-		
-		int N =stoi(br.readLine());
-		for(int i =0;i<N;i++) {
-			list.add(stoi(br.readLine()));
-		}
-		HashMap<Integer,Integer> hsmap = new HashMap<>();
-		
-		while(!list.isEmpty()) {
-			int num =list.poll();
-			if(num>=0) {
-				qplus.add(num);
-			}else
-				qminus.add(num);
-		}
-		Collections.reverse(qminus);
-		int sum=0;
-		ArrayList<Integer> lastpang = new ArrayList<>();
-		while(!qplus.isEmpty()) {
-			int num= qplus.pollFirst();
-			if(!qplus.isEmpty()) {
-				int num2=qplus.pollFirst();
-				sum+=Math.max(num*num2,num+num2);
-				continue;
+		int N = Integer.parseInt(br.readLine());
+		ArrayList<Integer> plus = new ArrayList<>();
+		ArrayList<Integer> zero = new ArrayList<>();
+		ArrayList<Integer> minus = new ArrayList<>();
+		int sum = 0;
+		for (int i = 0; i < N; i++) {
+			int num = Integer.parseInt(br.readLine());
+			if (num > 1) {
+				plus.add(num);
+			} else if (num < 0) {
+				minus.add(num);
+			} else if (num == 1) {
+				sum++;
+			} else {
+				zero.add(num);
 			}
-			lastpang.add(num);
 		}
-		while(!qminus.isEmpty()) {
-			int num= qminus.pollFirst();
-			if(!qminus.isEmpty()) {
-				int num2=qminus.pollFirst();
-				sum+=Math.max(num*num2,num+num2);
-				continue;
+		Collections.sort(plus, Collections.reverseOrder());
+		Collections.sort(minus);
+
+		for (int i = 0; i < plus.size() - 1; i += 2) {
+			sum += (plus.get(i) * plus.get(i + 1));
+		}
+		if ((plus.size() & 1) == 1)
+			sum += plus.get(plus.size() - 1);
+		for (int i = 0; i < minus.size() - 1; i += 2) {
+			sum += (minus.get(i) * minus.get(i + 1));
+		}
+		if ((minus.size() & 1) == 1) {
+			if (zero.size() == 0) {
+				sum += minus.get(minus.size() - 1);
 			}
-			lastpang.add(num);
 		}
-		if(lastpang.size()<1) {
-			System.out.println(sum);
-			return;
-		}
-		else if(lastpang.size()==1){
-			sum+=lastpang.get(0);
-		}else
-			sum+=Math.max(lastpang.get(0)+lastpang.get(1),lastpang.get(0)*lastpang.get(1));
 		System.out.println(sum);
 	}
-
 }
